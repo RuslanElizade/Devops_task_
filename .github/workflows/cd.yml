@@ -9,11 +9,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Trigger Render Deploy
-        env:
-          DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+      - name: Deploy to Vercel
         run: |
-          curl -X POST $DEPLOY_HOOK
+          npm i -g vercel
+          vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
